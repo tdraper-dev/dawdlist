@@ -1,12 +1,35 @@
-.container-fluid {
-    height: 500px;
-    
-    background-color: red;
+.container-fluid { 
+    height: 100vh;
+    display: flex;
+    align-items: center;
+}
+
+.box {
+    height: 533.33333px;
+    width: 800px;
+    background-color: burlywood;
+    justify-content: center;
     align-content: center;
 }
 
-.row {
-    height: 250px;
-    vertical-align: center;
-    background-color: blue;
+.noteSheetBox {
+    position: relative;
+    height: 400px;
+    width: 600px;
+    background-color: rgb(254,255,156);
+    align-content: flex-start;
+}
+
+#noteSheetForm {
+    width: 100%;
+}
+
+.taskInput {
+    background-color: rgb(254,255,156);
+    border: none !important;
+    border-bottom: 1px solid lightyellow !important;
+}
+
+.toDoNote {
+    border-bottom: 1px solid lightyellow;
 }

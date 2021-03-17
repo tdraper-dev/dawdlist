@@ -1,0 +1,12 @@
+.container-fluid {
+    height: 500px;
+    
+    background-color: red;
+    align-content: center;
+}
+
+.row {
+    height: 250px;
+    vertical-align: center;
+    background-color: blue;
+}

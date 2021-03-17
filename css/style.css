@@ -46,8 +46,8 @@
     border-bottom: 1px solid rgb(255,247,64) !important;
 }
 
-.taskInput.middle:focus {
-    outline-width: 0;
+.toDoBody {
+    min-height: 250px;
 }
 
 .toDoNote {
@@ -55,11 +55,14 @@
 }
 
 .toDoFooter {
+    bottom: 0;
+    left: 3px;
     font-size: 12px;
 }
 
 .status {
-    float: right;;
+    float: right;
+    margin-right: 10px;
 }
 
 .status p {

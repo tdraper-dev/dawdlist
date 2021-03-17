@@ -1,23 +1,30 @@
-.container-fluid { 
+.container { 
     height: 100vh;
+    width: 930px;
     display: flex;
     align-items: center;
 }
 
 .box {
-    height: 533.33333px;
-    width: 800px;
-    background-color: burlywood;
+    width: 80vw;
+ 
     justify-content: center;
     align-content: center;
+    position: relative;
 }
 
-.noteSheetBox {
+.titleText{
+    position: absolute;
+}
+
+.toDoBox {
     position: relative;
-    height: 400px;
-    width: 600px;
+    margin-top: 55px;
+    margin-bottom: 50px;
+    width: 80%;
     background-color: rgb(254,255,156);
     align-content: flex-start;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);
 }
 
 #noteSheetForm {
@@ -27,9 +34,26 @@
 .taskInput {
     background-color: rgb(254,255,156);
     border: none !important;
-    border-bottom: 1px solid lightyellow !important;
+    border-bottom: 1px solid rgb(255,247,64) !important;
+}
+
+.taskInput.middle:focus {
+    outline-width: 0;
 }
 
 .toDoNote {
-    border-bottom: 1px solid lightyellow;
+    border-bottom: 1px solid rgb(255,247,64);
+}
+
+.toDoFooter {
+    font-size: 12px;
+}
+
+.status {
+    float: right;;
+}
+
+.status p {
+    padding-left: 3px;
+    padding-right: 3px;
 }

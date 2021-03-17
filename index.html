@@ -6,28 +6,40 @@
     <title>repl.it</title>
     
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-    <script src="script.js"></script>
+    
     
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet" type="text/css" />
 
   </head>
   <body>
-    <div class="container-fluid">
+    <div class="container">
         <div class="row box mx-auto">
-            <div class="row noteSheetBox">
-                <div class="col-12 px-0 form">
+            <h1 class="titleText pt-2">todolist. . .</h1>
+            <div class="col-9 toDoBox">
+                <div class="toDoHeader col-12 px-0 pt-4 mb-2 form">
                     <form id="noteSheetForm">
-                        <input class="taskInput w-100" type="text" placeholder="     What needs doing?" required />
+                        <input class="taskInput w-100" type="text" placeholder="What needs doing?" required />
                     </form>
                 </div>
-                <div class="toDoNote col-12">Hello</div>
-                <div class="toDoNote col-12">Hello</div>
-                <div class="toDoNote col-12">Hello</div>
-                <div class="toDoNote col-12">Hello</div>
-                <div class="toDoNote col-12">Hello</div>
+                <div class="toDoBody col-12 pl-0">
+                    <div class="toDoNote d-flex col-12">
+                        <input type="checkbox" id="cake" class="align-self-center mr-2">
+                        <label for="cake">Test</label>
+                    </div>
+                </div>
+                <div class="toDoFooter col-12 px-0 pt-2 mb-2">
+                    <div class="d-inline-flex mb-1"><span id="itemsLeft"></span>Items Left</div>
+                    <div class="status d-inline-flex">
+                        <p id="all">All  </p>
+                        <p id="active">Active  </p>
+                        <p id="completed">Completed</p>
+                    </div> 
+
+                </div>
             </div>
         </div>
     </div>
+    <script src="script.js"></script>
   </body>
 </html>

@@ -1,13 +1,22 @@
-.container { 
-    height: 100vh;
-    width: 930px;
-    display: flex;
-    align-items: center;
+@media(min-width: 721px) {
+    .container { 
+        height: 100vh;
+        width: 720px;
+        display: flex;
+        align-items: center;
+    }
+}
+
+@media(max-width: 720px) {
+    .container { 
+        height: 100vh;
+        display: flex;
+        align-items: center;
+    }
 }
 
 .box {
     width: 80vw;
- 
     justify-content: center;
     align-content: center;
     position: relative;

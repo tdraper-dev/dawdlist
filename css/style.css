@@ -1,3 +1,18 @@
+@font-face {
+    font-family: grutchFont;
+    src: url('../css/grutchFont/GrutchShaded.ttf')
+}
+
+input[type=checkbox] {
+    transform: scale(1.5);
+}
+
+body {
+    background-image: url('../css/chalkboard.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
 @media(min-width: 721px) {
     .container { 
         height: 100vh;
@@ -22,28 +37,52 @@
     position: relative;
 }
 
-.titleText{
-    position: absolute;
+.titleText {
+    position: relative;
+    top: 70px;
+    font-family: grutchFont;
+    color: antiquewhite;
+}
+
+
+@media(min-width: 616px) {
+    .titleText{
+        font-size: 70px;
+    }
+}
+
+@media(max-width: 615px) {
+    .titleText{
+        font-size: 42px;
+    }
 }
 
 .toDoBox {
     position: relative;
     margin-top: 55px;
     margin-bottom: 50px;
-    width: 80%;
     background-color: rgb(254,255,156);
     align-content: flex-start;
     box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-size: 20px;
+}
+
+.toDoHeader {
+    border-bottom: 1px solid rgb(218, 207, 0) !important;
 }
 
 #noteSheetForm {
-    width: 100%;
+
 }
 
 .taskInput {
     background-color: rgb(254,255,156);
     border: none !important;
-    border-bottom: 1px solid rgb(255,247,64) !important;
+}
+
+.taskInput:focus {
+    outline: none;
 }
 
 .toDoBody {
@@ -51,7 +90,11 @@
 }
 
 .toDoNote {
-    border-bottom: 1px solid rgb(255,247,64);
+    border-bottom: 1px solid rgb(218, 207, 0);
+}
+
+label {
+    margin-bottom: 0 !important;
 }
 
 .toDoFooter {

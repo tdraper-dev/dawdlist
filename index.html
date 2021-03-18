@@ -25,16 +25,20 @@
                 </div>
                 <div class="toDoBody col-12 pl-0">
                     <div class="toDoNote d-flex col-12">
-                        <input type="checkbox" id="cake" class="align-self-center mr-2">
-                        <label class="pl-3" for="cake">Test</label>
+                        <input type="checkbox" id="cake" class="align-self-center mr-2 mb-2">
+                        <label class="pl-3 mt-1" for="cake">Test</label>
+                        <button class="btn pb-2 removeTask"><span class="buttonText">X</span></button>
                     </div>
                 </div>
                 <div class="toDoFooter col-12 px-0 pt-2 mb-2">
-                    <div class="d-inline-flex mb-1"><span id="itemsLeft"></span>Items Left</div>
+                    <div class="d-inline-flex mb-1">
+                        <span id="itemsLeft" class="pr-2">2</span>
+                        <span class="pl-3">Items Left</span>
+                    </div>
                     <div class="status d-inline-flex">
-                        <p id="all">All  </p>
-                        <p id="active">Active  </p>
-                        <p id="completed">Completed</p>
+                        <button class="btn" id="all">All</button>
+                        <button class="btn" id="active">Active</button>
+                        <button class="btn" id="completed">Completed</button>
                     </div> 
 
                 </div>

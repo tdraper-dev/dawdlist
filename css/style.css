@@ -57,6 +57,12 @@ body {
     }
 }
 
+@media(max-width: 400px) {
+    .titleText {
+        font-size: 37px;
+    }
+}
+
 .toDoBox {
     position: relative;
     margin-top: 55px;
@@ -85,8 +91,17 @@ body {
     outline: none;
 }
 
-.toDoBody {
-    min-height: 250px;
+
+@media(min-width: 616px) {
+    .toDoBody {
+        min-height: 250px;
+    }    
+}
+
+@media(max-width: 615px) {
+    .toDoBody {
+        min-height: 150px;
+    }   
 }
 
 .toDoNote {

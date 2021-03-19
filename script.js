@@ -14,11 +14,11 @@
 4) Create a function that will randomly select an active task and highlight that task.
 
 */
-var listItems = function() {
+var itemsLeft = function(completedCount) {
+    var activeCount = ($('.toDoNote').length)
+    var finalCount = activeCount - completedCount
+    $('#itemsLeft').html(finalCount);
 
-    var spice = $('[type=checkbox]')
-
-    return spice.length;
 }
 
 var loadTasks = function() {
@@ -28,12 +28,17 @@ var loadTasks = function() {
         url: 'https://altcademy-to-do-list-api.herokuapp.com/tasks?api_key=17',
         dataType: 'json',
         success: function (response, textStatus) {
-            response.tasks.forEach(function(task) {
-                $('.toDoBody').append('<div class="toDoNote d-flex col-12"><input type="checkbox" id="cake" class="align-self-center mr-2 mb-2"' + (task.completed ? "checked" : "") + '><label class="pl-3 mt-1" for="cake">' + task.content + '</label><button class="btn pb-2 removeTask" data-id="' + task.id +'"><span class="buttonText">X</span></button></div>')
+            var completedCount = 0;
 
-                $('#itemsLeft').html($('.toDoNote').length)
-                console.log('hi', listItems())
+            response.tasks.forEach(function(task) {
+                $('.toDoBody').prepend('<div class="toDoNote d-flex col-12"><input type="checkbox" id="checkBox" class="align-self-center mr-2 mb-2"' + (task.completed ? "checked" : "") + '><label class="pl-3 mt-1" for="checkBox">' + task.content + '</label><button class="btn pb-2 removeTask" data-id="' + task.id +'"><span class="buttonText">X</span></button></div>')
+
+                if(task.completed) {
+                    completedCount++
+                }
             })
+            
+            itemsLeft(completedCount);
         },
         error: function (request, textStatus, errorMessage) {
         console.log(errorMessage);
@@ -55,7 +60,7 @@ var uploadTask = function() {
             }
         }),
         success: function (response, textStatus) {
-            $('.toDoBody').append('<div class="toDoNote d-flex col-12"><input type="checkbox" id="cake" class="align-self-center mr-2 mb-2"' + (response.task.completed ? "checked" : "") + '><label class="pl-3 mt-1" for="cake">' + response.task.content + '</label><button class="btn pb-2 removeTask" data-id="' + response.task.id +'"><span class="buttonText">X</span></button></div>')
+            $('.toDoBody').prepend('<div class="toDoNote d-flex col-12"><input type="checkbox" id="checkBox" class="align-self-center mr-2 mb-2"' + (response.task.completed ? "checked" : "") + '><label class="pl-3 mt-1" for="checkBox">' + response.task.content + '</label><button class="btn pb-2 removeTask" data-id="' + response.task.id +'"><span class="buttonText">X</span></button></div>')
             
             $('#itemsLeft').html($('.toDoNote').length);
         },
@@ -71,9 +76,7 @@ var deleteTask = function(id) {
     $.ajax({
         type: 'DELETE',
         url: 'https://altcademy-to-do-list-api.herokuapp.com/tasks/' + id + '?api_key=17',
-        success: function (response, textStatus) {
-            $('#itemsLeft').html($('.toDoNote').length);
-        },
+        success: function (response, textStatus) {},
         error: function (request, textStatus, errorMessage) {
           console.log(errorMessage);
         }
@@ -112,7 +115,9 @@ var markTaskActive = function(id) {
 }
 
 $(document).ready(function() {
+
     loadTasks();
+
     
 
     $('#noteSheetForm').submit(function(event) {
@@ -128,21 +133,27 @@ $(document).ready(function() {
         $(this).closest('.toDoNote').remove();
         deleteTask($(this).data('id'));
 
+        if($(this).prev().prev().is(':checked') !== true) {
+            $('#itemsLeft').html((parseInt($('#itemsLeft').text()))-1);
+            
+        } 
+    
     })
 
-    $(document).on('change', '#cake', function() {
-        if($('#cake').is(':checked')) {
+    $(document).on('change', '#checkBox', function() {
+        var itemsRemaining = parseInt($('#itemsLeft').text())
+
+        if($(this).is(':checked')) {
             completeTask($(this).siblings('.removeTask').data('id'));
+            $('#itemsLeft').html(itemsRemaining-1);
+
         } else  {
             markTaskActive($(this).siblings('.removeTask').data('id'))
+            $('#itemsLeft').html(itemsRemaining+1);
         }
 
     })
 });
-
-
-
-
 
 
 

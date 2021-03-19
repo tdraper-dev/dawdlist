@@ -20,17 +20,10 @@ body {
 .container { 
     margin-top: 50px;
     display: flex;
-    align-content: center;
-}
-
-@media(min-width: 721px) {
-    .container { 
-        width: 720px;
-    }
+    
 }
 
 .box {
-    width: 80vw;
     justify-content: center;
     align-content: center;
     position: relative;
@@ -43,26 +36,29 @@ body {
     color: antiquewhite;
 }
 
-
-@media(min-width: 616px) {
+@media(max-width: 614px) {
+    .titleText {
+        font-size: 37px;
+        top: 50px;
+    }
+}
+@media(min-width: 615px) {
+    .titleText{
+        font-size: 42px;
+        top: 65px !important;
+    }
+}
+@media(min-width: 800px) {
     .titleText{
         font-size: 70px;
     }
 }
-
-@media(max-width: 615px) {
+@media(min-width: 1000px) {
     .titleText{
-        font-size: 42px;
-        top: 60px;
+        font-size: 130px;
     }
 }
 
-@media(max-width: 400px) {
-    .titleText {
-        font-size: 37px;
-        top: 60px;
-    }
-}
 
 .toDoBox {
     position: relative;
@@ -89,6 +85,11 @@ body {
     outline: none;
 }
 
+@media(max-width: 615px) {
+    .toDoBody {
+        min-height: 150px;
+    }   
+}
 
 @media(min-width: 616px) {
     .toDoBody {
@@ -96,11 +97,12 @@ body {
     }    
 }
 
-@media(max-width: 615px) {
+@media(min-width: 1000px) {
     .toDoBody {
-        min-height: 150px;
-    }   
+        min-height: 400px;
+    }    
 }
+
 
 .toDoNote {
     border-bottom: 1px solid rgb(218, 207, 0);

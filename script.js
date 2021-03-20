@@ -178,7 +178,11 @@ $(document).ready(function() {
         var randomTaskNumber = numGenerator(max)
 
         $('input[type="checkbox"]:not(:checked)').eq(randomTaskNumber).closest('.toDoNote').show();
+        $('.kudos').show();
 
+    })
+    $('#randomTaskButton').on('mouseleave', function() {
+        $('.kudos').hide();
     })
 
 });

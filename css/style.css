@@ -63,7 +63,7 @@ body {
 .toDoBox {
     position: relative;
     margin-top: 55px;
-    margin-bottom: 50px;
+    margin-bottom: 30px;
     background-color: rgb(254,255,156);
     align-content: flex-start;
     box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);

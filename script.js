@@ -135,7 +135,6 @@ $(document).ready(function() {
             $('#itemsLeft').html((parseInt($('#itemsLeft').text()))-1);
             
         } 
-    
     })
 
     $(document).on('change', '#checkBox', function() {
@@ -149,7 +148,6 @@ $(document).ready(function() {
             markTaskActive($(this).siblings('.removeTask').data('id'))
             $('#itemsLeft').html(itemsRemaining+1);
         }
-
     })
 
 
@@ -157,7 +155,10 @@ $(document).ready(function() {
                         /* Action Buttons */
 
     $('#clearAll').on('click', function() {
-        $('input[type="checkbox"]:checked').closest('.toDoNote').remove();
+        $('input[type="checkbox"]:checked').each(function() {
+            deleteTask($(this).siblings('.removeTask').data('id'));
+            $('input[type="checkbox"]:checked').closest('.toDoNote').remove();
+        }) 
     })
 
     $('#active').on('focus', function() {
@@ -173,15 +174,13 @@ $(document).ready(function() {
     })
 
     $('#randomTaskButton').on('click', function() {
-
         $('input[type="checkbox"]').closest('.toDoNote').hide();
-        
+    
         var max = $('input[type="checkbox"]:not(:checked)').length;
         var randomTaskNumber = numGenerator(max)
 
         $('input[type="checkbox"]:not(:checked)').eq(randomTaskNumber).closest('.toDoNote').show();
         $('.kudos').show();
-
     })
 
 

@@ -197,14 +197,14 @@ button {
 
 @media(max-width: 409px) {
     .status .btn {
-        font-size: 13px;
+        font-size: 12px;
     }
     .status .btn:first-child {
         padding-left: 0;
-        padding-right: 3px;
+        padding-right: 1px;
     }
     .status .btn:last-child {
-        padding-left: 3px;
+        padding-left: 1px;
         padding-right: 0;
     }
 }

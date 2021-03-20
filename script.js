@@ -11,15 +11,9 @@
 	to add a total task number updater
 3[CHECK updated within each AJAX request]) in the <span> element within “items left” create a jquery Dom manipulation that injects the current length of toDoNote input length.
 	to add a Random Task Selector
-4) Create a function that will randomly select an active task and highlight that task.
+4) [CHECK] Create a function that will randomly select an active task and highlight that task.
 
 */
-var itemsLeft = function(completedCount) {
-    var activeCount = ($('.toDoNote').length)
-    var finalCount = activeCount - completedCount
-    $('#itemsLeft').html(finalCount);
-
-}
 
 var loadTasks = function() {
 
@@ -28,17 +22,17 @@ var loadTasks = function() {
         url: 'https://altcademy-to-do-list-api.herokuapp.com/tasks?api_key=17',
         dataType: 'json',
         success: function (response, textStatus) {
-            var completedCount = 0;
+            var tasksRemaining = response.tasks.length;
 
             response.tasks.forEach(function(task) {
                 $('.toDoBody').prepend($('<div class="toDoNote col-12"><input type="checkbox" id="checkBox" class="align-self-center mr-2 mb-2"' + (task.completed ? "checked" : "") + '><label class="pl-3 mt-1" for="checkBox">' + task.content + '</label><button class="btn pb-2 removeTask" data-id="' + task.id +'"><span class="buttonText">X</span></button></div>'))
 
                 if(task.completed) {
-                    completedCount++
+                    tasksRemaining--
                 }
             })
             
-            itemsLeft(completedCount);
+            $('#itemsLeft').html(tasksRemaining);
         },
         error: function (request, textStatus, errorMessage) {
         console.log(errorMessage);

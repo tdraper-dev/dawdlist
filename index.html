@@ -23,19 +23,23 @@
                         <input class="taskInput w-100" type="text" placeholder="What next?" required />
                     </form>
                 </div>
-                <div class="toDoBody col-12 pl-0">
+                <div class="toDoBody col-12 pl-0 pr-1">
                 </div>
-                <div class="toDoFooter col-12 px-0 pt-2 mb-2">
-                    <div class="d-inline-flex mb-1 itemsRemaining">
-                        <span id="itemsLeft" class="pr-2"></span>
-                        <span class="pl-3 itemsLeftText">Items Left</span>
+                <div class="toDoFooter row px-3 pt-2 mb-2">
+                    <div class="itemsRemaining col-12 col-lg-3 pb-md-1">
+                        <span id="itemsLeft" class="pr-1"></span>
+                        <span class="pl-1 itemsLeftText">Items Left</span>
                     </div>
-                    <div class="status d-inline-flex">
-                        <button class="btn" id="all">All</button>
-                        <button class="btn" id="active">Active</button>
-                        <button class="btn" id="completed">Completed</button>
-                    </div> 
-
+                    <div class="actionButtons d-md-flex col-12 col-lg-9">
+                        <div class="clearAllButton pl-5">
+                            <button class="btn pl-3" id="clearAll">Clear Completed</button>
+                        </div>
+                        <div class="status ml-auto">
+                            <button class="btn" id="all">All</button>
+                            <button class="btn" id="active">Active</button>
+                            <button class="btn" id="completed">Completed</button>
+                        </div> 
+                    </div>
                 </div>
             </div>
             <div class="randomizer col-9">

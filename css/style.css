@@ -215,8 +215,7 @@ button {
     .status .btn:nth-child(2) {
         padding-left: 0;
         padding-right: 0;
-        margin-left: 2px;
-        margin-right: 2px;
+  
     }
     .status .btn:last-child {
         padding-left: 1px;

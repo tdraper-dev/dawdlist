@@ -152,6 +152,14 @@ $(document).ready(function() {
 
     })
 
+
+
+                        /* Action Buttons */
+
+    $('#clearAll').on('click', function() {
+        $('input[type="checkbox"]:checked').closest('.toDoNote').remove();
+    })
+
     $('#active').on('focus', function() {
         $('input[type="checkbox"]:checked').closest('.toDoNote').hide();
         $('input[type="checkbox"]:not(:checked)').closest('.toDoNote').show();
@@ -175,68 +183,11 @@ $(document).ready(function() {
         $('.kudos').show();
 
     })
+
+
+                       /* Kudos Notice */
     $('#randomTaskButton').on('mouseleave', function() {
         $('.kudos').hide();
     })
 
 });
-
-
-
-
-
-
-
-
-
-//                    <div class="toDoNote d-flex col-12">
-//<input type="checkbox" id="cake" class="align-self-center mr-2 mb-2">
-//<label class="pl-3 mt-1" for="cake">Test</label>
-//<button class="btn pb-2 removeTask"><span class="buttonText">X</span></button>
-//</div>
-
-
-
-    /*var httpRequest = new XMLHttpRequest();
-
-    httpRequest.onload = function() {
-        if (httpRequest.readyState === XMLHttpRequest.DONE && httpRequest.status === 200) {
-            console.log(JSON.parse(httpRequest.responseText)["tasks"])
-            return httpRequest.responseText
-            //returns a parsed JS array of nested JS objects for all tasks
-        } else {
-            console.log(httpRequest.statusText);
-        }
-    }
-    httpRequest.onerror = function() {
-        console.log(httpRequest.statusText);
-    }
-    
-    httpRequest.open('GET', 'https://altcademy-to-do-list-api.herokuapp.com/tasks?api_key=17');
-
-    httpRequest.send();*/
-
-
-
-
-    /*var httpRequest = new XMLHttpRequest();
-    httpRequest.onload = function() {
-        if (httpRequest.readyState === XMLHttpRequest.DONE && httpRequest.status === 200) {
-            
-            //returns the parsed JS object being added
-
-        } else {
-            console.log(httpRequest.statusText);
-        }
-    }
-    httpRequest.onerror = function() {
-        console.log(httpRequest.statusText);
-    }
-    httpRequest.open('POST', 'https://altcademy-to-do-list-api.herokuapp.com/tasks?api_key=17');
-    httpRequest.setRequestHeader("Content-Type", "application/json");
-
-    httpRequest.send(JSON.stringify({
-        task: {
-            content: "Wash laundry; ADD WITH POST /TASKS"
-        }
-    }));*/

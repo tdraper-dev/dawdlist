@@ -31,7 +31,7 @@ var loadTasks = function() {
             var completedCount = 0;
 
             response.tasks.forEach(function(task) {
-                $('.toDoBody').prepend($('<div class="toDoNote d-flex col-12"><input type="checkbox" id="checkBox" class="align-self-center mr-2 mb-2"' + (task.completed ? "checked" : "") + '><label class="pl-3 mt-1" for="checkBox">' + task.content + '</label><button class="btn pb-2 removeTask" data-id="' + task.id +'"><span class="buttonText">X</span></button></div>'))
+                $('.toDoBody').prepend($('<div class="toDoNote col-12"><input type="checkbox" id="checkBox" class="align-self-center mr-2 mb-2"' + (task.completed ? "checked" : "") + '><label class="pl-3 mt-1" for="checkBox">' + task.content + '</label><button class="btn pb-2 removeTask" data-id="' + task.id +'"><span class="buttonText">X</span></button></div>'))
 
                 if(task.completed) {
                     completedCount++
@@ -60,7 +60,7 @@ var uploadTask = function() {
             }
         }),
         success: function (response, textStatus) {
-            $('.toDoBody').prepend($('<div class="toDoNote d-flex col-12"><input type="checkbox" id="checkBox" class="align-self-center mr-2 mb-2"' + (response.task.completed ? "checked" : "") + '><label class="pl-3 mt-1" for="checkBox">' + response.task.content + '</label><button class="btn pb-2 removeTask" data-id="' + response.task.id +'"><span class="buttonText">X</span></button></div>'))
+            $('.toDoBody').prepend($('<div class="toDoNote col-12"><input type="checkbox" id="checkBox" class="align-self-center mr-2 mb-2"' + (response.task.completed ? "checked" : "") + '><label class="pl-3 mt-1" for="checkBox">' + response.task.content + '</label><button class="btn pb-2 removeTask" data-id="' + response.task.id +'"><span class="buttonText">X</span></button></div>'))
             
             $('#itemsLeft').html($('.toDoNote').length);
         },
@@ -114,6 +114,10 @@ var markTaskActive = function(id) {
 
 }
 
+function numGenerator(max) {
+    return Math.floor(Math.random() * max);
+}
+
 $(document).ready(function() {
 
     loadTasks();
@@ -153,6 +157,30 @@ $(document).ready(function() {
         }
 
     })
+
+    $('#active').on('focus', function() {
+        $('input[type="checkbox"]:checked').closest('.toDoNote').hide();
+        $('input[type="checkbox"]:not(:checked)').closest('.toDoNote').show();
+    })
+    $('#completed').on('focus', function() {
+        $('input[type="checkbox"]:not(:checked)').closest('.toDoNote').hide();
+        $('input[type="checkbox"]:checked').closest('.toDoNote').show();
+    })
+    $('#all').on('focus', function() {
+        $('input[type="checkbox"]').closest('.toDoNote').show();
+    })
+
+    $('#randomTaskButton').on('click', function() {
+
+        $('input[type="checkbox"]').closest('.toDoNote').hide();
+        
+        var max = $('input[type="checkbox"]:not(:checked)').length;
+        var randomTaskNumber = numGenerator(max)
+
+        $('input[type="checkbox"]:not(:checked)').eq(randomTaskNumber).closest('.toDoNote').show();
+
+    })
+
 });
 
 

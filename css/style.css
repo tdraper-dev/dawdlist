@@ -106,6 +106,7 @@ body {
 
 .toDoNote {
     border-bottom: 1px solid rgb(218, 207, 0);
+    display: flex;
 }
 
 
@@ -198,4 +199,30 @@ button {
         position: static;
         display: block !important;
     }
+}
+
+.randomizer {
+    text-align: center;
+}
+.randomizer h2 {
+    font-family: grutchFont;
+    color:antiquewhite;
+}
+
+@media(max-width: 615px) {
+    .randomizer h2{
+        font-size: 20px;
+    }
+}
+
+.randomizer button:focus {
+    outline-color: antiquewhite;
+    box-shadow: none;
+
+}
+.kudos {
+    display: none;
+    margin-top: -3px;
+    color: white;
+    text-align:center;
 }

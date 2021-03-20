@@ -208,16 +208,19 @@ button {
     .actionButtons .btn {
         font-size: 12px;
     }
+
     #all {
         padding-left: 0;
         padding-right: 1px;
     }
-    .status > #active {
+
+    #active {
         padding-left: 0 !important;
         padding-right: 0 !important;
         margin: 0 3px 0 3px;
   
     }
+
     #completed {
         padding-left: 1px;
         padding-right: 0;
@@ -238,10 +241,19 @@ button {
     }
 }
 
-.randomizer button:focus {
-    outline-color: antiquewhite;
-    box-shadow: none;
+.randomizer button {
 
+}
+.randomizer button:focus {
+    outline: none;
+    box-shadow: none;
+    
+
+}
+.randomizer button:hover  {
+    border: 5px dashed antiquewhite;
+    border-radius: 100px;
+    font-weight: bold;
 }
 .kudos {
     display: none;

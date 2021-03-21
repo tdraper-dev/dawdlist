@@ -85,7 +85,11 @@ var completeTask = function(id) {
         type: 'PUT',
         url: 'https://altcademy-to-do-list-api.herokuapp.com/tasks/' + id + '/mark_complete?api_key=17',
         dataType: 'json',
-        success: function(response, textStatus) {},
+        success: function(response, textStatus) {
+            var itemsRemaining = parseInt($('#itemsLeft').text())
+            $('#itemsLeft').html(itemsRemaining-1)
+
+        },
         error: function(request, textStatus, errorMessage) {
             console.log(errorMessage);
         }
@@ -100,7 +104,10 @@ var markTaskActive = function(id) {
         type: 'PUT',
         url: 'https://altcademy-to-do-list-api.herokuapp.com/tasks/' + id + '/mark_active?api_key=17',
         dataType: 'json',
-        success: function(response, textStatus) {},
+        success: function(response, textStatus) {
+            var itemsRemaining = parseInt($('#itemsLeft').text())
+            $('#itemsLeft').html(itemsRemaining+1)
+        },
         error: function(request, textStatus, errorMessage) {
             console.log(errorMessage);
         }
@@ -138,15 +145,12 @@ $(document).ready(function() {
     })
 
     $(document).on('change', '#checkBox', function() {
-        var itemsRemaining = parseInt($('#itemsLeft').text())
 
         if($(this).is(':checked')) {
             completeTask($(this).siblings('.removeTask').data('id'));
-            $('#itemsLeft').html(itemsRemaining-1);
 
         } else  {
             markTaskActive($(this).siblings('.removeTask').data('id'))
-            $('#itemsLeft').html(itemsRemaining+1);
         }
     })
 

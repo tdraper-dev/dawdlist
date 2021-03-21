@@ -181,9 +181,8 @@ $(document).ready(function() {
         $('input[type="checkbox"]').closest('.toDoNote').hide();
     
         var max = $('input[type="checkbox"]:not(:checked)').length;
-        var randomTaskNumber = numGenerator(max)
 
-        $('input[type="checkbox"]:not(:checked)').eq(randomTaskNumber).closest('.toDoNote').show();
+        $('input[type="checkbox"]:not(:checked)').eq(numGenerator(max)).closest('.toDoNote').show();
         $('.kudos').show();
     })
 

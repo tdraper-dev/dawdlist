@@ -15,6 +15,10 @@
 
 */
 
+function numGenerator(max) {
+    return Math.floor(Math.random() * max);
+}
+
 var loadTasks = function() {
 
     $.ajax({
@@ -22,6 +26,7 @@ var loadTasks = function() {
         url: 'https://altcademy-to-do-list-api.herokuapp.com/tasks?api_key=17',
         dataType: 'json',
         success: function (response, textStatus) {
+            $('input[type="checkbox"]').closest('.toDoNote').remove();
             var tasksRemaining = response.tasks.length;
 
             response.tasks.forEach(function(task) {
@@ -115,9 +120,29 @@ var markTaskActive = function(id) {
 
 }
 
-function numGenerator(max) {
-    return Math.floor(Math.random() * max);
+var pickATask = function() {
+    $.ajax({
+        type: 'GET',
+        url: 'https://altcademy-to-do-list-api.herokuapp.com/tasks?api_key=17',
+        dataType: 'json',
+        success: function (response, textStatus) {
+            $('input[type="checkbox"]').closest('.toDoNote').hide();
+
+            var max = [];
+            response.tasks.forEach(function(task) {
+                if(task.completed !== true) {
+                    max.push(task);
+                }
+            })
+            $('input[type="checkbox"]:not(:checked)').eq(numGenerator(max.length)).closest('.toDoNote').show();
+
+        },
+        error: function (request, textStatus, errorMessage) {
+        console.log(errorMessage);
+        }
+    });
 }
+
 
 $(document).ready(function() {
 
@@ -174,15 +199,11 @@ $(document).ready(function() {
         $('input[type="checkbox"]:checked').closest('.toDoNote').show();
     })
     $('#all').on('focus', function() {
-        $('input[type="checkbox"]').closest('.toDoNote').show();
+        loadTasks();
     })
 
     $('#randomTaskButton').on('click', function() {
-        $('input[type="checkbox"]').closest('.toDoNote').hide();
-    
-        var max = $('input[type="checkbox"]:not(:checked)').length;
-
-        $('input[type="checkbox"]:not(:checked)').eq(numGenerator(max)).closest('.toDoNote').show();
+        pickATask();
         $('.kudos').show();
     })
 

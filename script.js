@@ -122,10 +122,16 @@ var pickATask = function() {
     });
 }
 
+var refreshThePage = function() {
+    console.log('refreshed');
+    loadTasks();
+}
 
 $(document).ready(function() {
 
     loadTasks();
+    var interval = window.setInterval(refreshThePage, 10000);
+   
 
     $('#noteSheetForm').submit(function(event) {
 
@@ -184,5 +190,4 @@ $(document).ready(function() {
     $('#randomTaskButton').on('mouseleave', function() {
         $('.kudos').hide();
     })
-
 });

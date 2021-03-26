@@ -9,6 +9,7 @@ var loadTasks = function() {
         url: 'https://altcademy-to-do-list-api.herokuapp.com/tasks?api_key=17',
         dataType: 'json',
         success: function (response, textStatus) {
+            
             $('input[type="checkbox"]').closest('.toDoNote').remove();
             
             var tasksRemaining = response.tasks.length;
@@ -122,16 +123,49 @@ var pickATask = function() {
     });
 }
 
+
 var refreshThePage = function() {
-    console.log('refreshed');
-    loadTasks();
+    console.log('reset');
+    return loadTasks();
 }
+
+var intervalReset = function(interval) {
+    if(interval) {
+        window.clearInterval(interval);
+        interval = window.setInterval(refreshThePage, 5000);
+        return interval
+    } else if(!interval) {
+        interval = window.setInterval(refreshThePage, 5000);
+        return interval
+    }
+}
+
+
+
+var debounce = function(callback, delay) {
+    var timeout;
+    return function() {
+        clearTimeout(timeout);
+        timeout = setTimeout(callback, delay);
+    }
+}
+
+var refreshThis = debounce(function() {
+    loadTasks();
+}, 1000);
+
+
 
 $(document).ready(function() {
 
     loadTasks();
-    var interval = window.setInterval(refreshThePage, 10000);
-   
+    var interval
+
+    $(window).on('keydown keyup click mousemove change', function(event) {
+        interval = intervalReset(interval);
+        refreshThis();
+    })
+
 
     $('#noteSheetForm').submit(function(event) {
 
@@ -191,3 +225,55 @@ $(document).ready(function() {
         $('.kudos').hide();
     })
 });
+/*
+var debounce = function(callback, delay) {
+    var timeout;
+    return function() {
+        clearTimeout(timeout);
+        timeout = setTimeout(callback, delay);
+    }
+}
+
+
+var refreshThis = debounce(function() {
+    loadTasks();
+    console.log('debounced!')
+
+
+}, 1000);
+var refreshThePage = function() {
+    console.log('reset');
+    return loadTasks();
+}
+
+
+
+
+var startInterval = function() {
+    interval = window.setInterval(refreshThePage, 5000);
+}
+var stopInterval = function(interval) {
+
+    if(interval) {
+        window.clearInterval(interval);
+    }
+}
+
+
+$(document).ready(function() {
+
+    loadTasks();
+    var interval
+
+    if(!interval) {
+        interval = window.setInterval(refreshThePage, 5000);
+    }
+
+
+    $(window).on('keyup keydown click mousemove change', function(event) {
+        console.log(event.type);
+        refreshThis();
+        
+    });
+
+*/

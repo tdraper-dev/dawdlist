@@ -159,12 +159,13 @@ var refreshThis = debounce(function() {
 $(document).ready(function() {
 
     loadTasks();
+  
     var interval
 
-    $(window).on('keydown keyup click mousemove change', function(event) {
-        interval = intervalReset(interval);
-        refreshThis();
-    })
+   // $(window).on('keydown keyup click mousemove change', function(event) {
+       // interval = intervalReset(interval);
+        //refreshThis();
+    //})
 
 
     $('#noteSheetForm').submit(function(event) {
@@ -205,10 +206,12 @@ $(document).ready(function() {
     })
 
     $('#active').on('focus', function() {
+   
         $('input[type="checkbox"]:checked').closest('.toDoNote').hide();
         $('input[type="checkbox"]:not(:checked)').closest('.toDoNote').show();
     })
     $('#completed').on('focus', function() {
+        
         $('input[type="checkbox"]:not(:checked)').closest('.toDoNote').hide();
         $('input[type="checkbox"]:checked').closest('.toDoNote').show();
     })

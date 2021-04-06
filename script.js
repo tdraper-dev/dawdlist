@@ -2,14 +2,14 @@ function numGenerator(max) {
     return Math.floor(Math.random() * max);
 }
 
-var loadTasks = function() {
+var loadTasks = function(status) {
 
     $.ajax({
         type: 'GET',
         url: 'https://altcademy-to-do-list-api.herokuapp.com/tasks?api_key=17',
         dataType: 'json',
         success: function (response, textStatus) {
-            
+            console.log('refresh');
             $('input[type="checkbox"]').closest('.toDoNote').remove();
             
             var tasksRemaining = response.tasks.length;
@@ -23,6 +23,16 @@ var loadTasks = function() {
             })
             
             $('#itemsLeft').html(tasksRemaining);
+
+            if(status == 'active') {
+                $('input[type="checkbox"]:checked').closest('.toDoNote').hide();
+                $('input[type="checkbox"]:not(:checked)').closest('.toDoNote').show();
+      
+            }
+            if(status == 'complete') {
+                $('input[type="checkbox"]:not(:checked)').closest('.toDoNote').hide();
+                $('input[type="checkbox"]:checked').closest('.toDoNote').show();
+            } 
         },
         error: function (request, textStatus, errorMessage) {
         console.log(errorMessage);
@@ -30,7 +40,7 @@ var loadTasks = function() {
     });
 }
 
-var uploadTask = function() {
+var uploadTask = function(status) {
 
     $.ajax({
         type: 'POST',
@@ -43,7 +53,7 @@ var uploadTask = function() {
             }
         }),
         success: function (response, textStatus) {
-            loadTasks();
+            loadTasks(status);
         },
         error: function (request, textStatus, errorMessage) {
           console.log(errorMessage);
@@ -123,57 +133,38 @@ var pickATask = function() {
     });
 }
 
-
-var refreshThePage = function() {
-    console.log('reset');
-    return loadTasks();
-}
-
-var intervalReset = function(interval) {
-    if(interval) {
-        window.clearInterval(interval);
-        interval = window.setInterval(refreshThePage, 5000);
-        return interval
-    } else if(!interval) {
-        interval = window.setInterval(refreshThePage, 5000);
-        return interval
-    }
-}
-
-
-
-var debounce = function(callback, delay) {
-    var timeout;
-    return function() {
-        clearTimeout(timeout);
-        timeout = setTimeout(callback, delay);
-    }
-}
-
-var refreshThis = debounce(function() {
-    loadTasks();
-}, 1000);
-
-
-
 $(document).ready(function() {
 
+
+    
     loadTasks();
-  
-    var interval
 
-   // $(window).on('keydown keyup click mousemove change', function(event) {
-       // interval = intervalReset(interval);
-        //refreshThis();
-    //})
+    //CHECK WHICH BUTTON IS CURRENTLY FOCUSED AND HOLD THAT VALUE AS A VARIABLE? 
+    var status;
 
+    var interval = window.setInterval(function() {
+        let status;
+        if ($('#active').is(':focus')) {
+            status = 'active';
+        }
+        if ($('#completed').is(':focus')) {
+            status = 'complete';
+        }
+        loadTasks(status);
+    }, 1000);
+
+    console.log(status);
+
+    $(document).on('keydown touchstart', '.taskInput', function(e) {
+        window.clearInterval(interval)
+    })
 
     $('#noteSheetForm').submit(function(event) {
 
         event.preventDefault();
-        uploadTask();
+        uploadTask(status);
         $('.taskInput').val('')
-
+        interval = window.setInterval(loadTasks, 2000, status);
     }) 
 
     $(document).on('click', '.removeTask', function(event) {
@@ -206,17 +197,16 @@ $(document).ready(function() {
     })
 
     $('#active').on('focus', function() {
-   
         $('input[type="checkbox"]:checked').closest('.toDoNote').hide();
         $('input[type="checkbox"]:not(:checked)').closest('.toDoNote').show();
     })
     $('#completed').on('focus', function() {
-        
         $('input[type="checkbox"]:not(:checked)').closest('.toDoNote').hide();
         $('input[type="checkbox"]:checked').closest('.toDoNote').show();
     })
     $('#all').on('focus', function() {
-        loadTasks();
+        status = 'all';
+        loadTasks(status);
     })
 
     $('#randomTaskButton').on('click', function() {
@@ -227,56 +217,6 @@ $(document).ready(function() {
     $('#randomTaskButton').on('mouseleave', function() {
         $('.kudos').hide();
     })
+
+   
 });
-/*
-var debounce = function(callback, delay) {
-    var timeout;
-    return function() {
-        clearTimeout(timeout);
-        timeout = setTimeout(callback, delay);
-    }
-}
-
-
-var refreshThis = debounce(function() {
-    loadTasks();
-    console.log('debounced!')
-
-
-}, 1000);
-var refreshThePage = function() {
-    console.log('reset');
-    return loadTasks();
-}
-
-
-
-
-var startInterval = function() {
-    interval = window.setInterval(refreshThePage, 5000);
-}
-var stopInterval = function(interval) {
-
-    if(interval) {
-        window.clearInterval(interval);
-    }
-}
-
-
-$(document).ready(function() {
-
-    loadTasks();
-    var interval
-
-    if(!interval) {
-        interval = window.setInterval(refreshThePage, 5000);
-    }
-
-
-    $(window).on('keyup keydown click mousemove change', function(event) {
-        console.log(event.type);
-        refreshThis();
-        
-    });
-
-*/

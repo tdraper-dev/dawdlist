@@ -29,7 +29,7 @@ var loadTasks = function(status) {
                     }
                 }
             })
-            
+            console.log(tasksRemaining);
             $('#itemsLeft').html(tasksRemaining);
 
             if(status == 'active') {
@@ -90,8 +90,12 @@ var completeTask = function(id) {
         url: 'https://altcademy-to-do-list-api.herokuapp.com/tasks/' + id + '/mark_complete?api_key=17',
         dataType: 'json',
         success: function(response, textStatus) {
-            var itemsRemaining = parseInt($('#itemsLeft').text())
-            $('#itemsLeft').html(itemsRemaining)
+            
+            if(id !== 1994) {
+
+                var itemsRemaining = parseInt($('#itemsLeft').text())
+                $('#itemsLeft').html(itemsRemaining-1)
+            }
 
         },
         error: function(request, textStatus, errorMessage) {
@@ -109,8 +113,13 @@ var markTaskActive = function(id) {
         url: 'https://altcademy-to-do-list-api.herokuapp.com/tasks/' + id + '/mark_active?api_key=17',
         dataType: 'json',
         success: function(response, textStatus) {
-            var itemsRemaining = parseInt($('#itemsLeft').text())
-            $('#itemsLeft').html(itemsRemaining)
+            
+            if(id !== 1994) {
+
+                var itemsRemaining = parseInt($('#itemsLeft').text())
+                $('#itemsLeft').html(itemsRemaining+1)
+            }
+            
         },
         error: function(request, textStatus, errorMessage) {
             console.log(errorMessage);
@@ -184,7 +193,6 @@ $(document).ready(function() {
         event.preventDefault();
         uploadTask(status);
         $('.taskInput').val('')
-        //$('#all').trigger('focus');
         interval = reloadThePage();
     }) 
 

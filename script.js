@@ -3,7 +3,7 @@ function numGenerator(max) {
 }
 
 var loadTasks = function(status) {
-
+    var status = status;
     $.ajax({
         type: 'GET',
         url: 'https://altcademy-to-do-list-api.herokuapp.com/tasks?api_key=17',
@@ -12,13 +12,21 @@ var loadTasks = function(status) {
             console.log('refresh');
             $('input[type="checkbox"]').closest('.toDoNote').remove();
             
-            var tasksRemaining = response.tasks.length;
+            var tasksRemaining = response.tasks.length -1;
 
             response.tasks.forEach(function(task) {
-                $('.toDoBody').prepend($('<div class="toDoNote col-12"><input type="checkbox" id="checkBox" class="align-self-center mr-2 mb-2"' + (task.completed ? "checked" : "") + '><label class="pl-3 mt-1" for="checkBox">' + task.content + '</label><button class="btn pb-2 removeTask" data-id="' + task.id +'"><span class="buttonText">X</span></button></div>'))
+                if (task.id !== 1994) {
+                    $('.toDoBody').prepend($('<div class="toDoNote col-12"><input type="checkbox" id="checkBox" class="align-self-center mr-2 mb-2"' + (task.completed ? "checked" : "") + '><label class="pl-3 mt-1" for="checkBox">' + task.content + '</label><button class="btn pb-2 removeTask" data-id="' + task.id +'"><span class="buttonText">X</span></button></div>'))
 
-                if(task.completed) {
-                    tasksRemaining--
+                    if(task.completed) {
+                        tasksRemaining--
+                    }
+                }
+                if (task.id == 1994) {
+                    if (task.completed) {
+                        status = 'active';
+                        $('#active').focus();
+                    }
                 }
             })
             
@@ -53,6 +61,7 @@ var uploadTask = function(status) {
             }
         }),
         success: function (response, textStatus) {
+            var status;
             loadTasks(status);
         },
         error: function (request, textStatus, errorMessage) {
@@ -82,7 +91,7 @@ var completeTask = function(id) {
         dataType: 'json',
         success: function(response, textStatus) {
             var itemsRemaining = parseInt($('#itemsLeft').text())
-            $('#itemsLeft').html(itemsRemaining-1)
+            $('#itemsLeft').html(itemsRemaining)
 
         },
         error: function(request, textStatus, errorMessage) {
@@ -101,7 +110,7 @@ var markTaskActive = function(id) {
         dataType: 'json',
         success: function(response, textStatus) {
             var itemsRemaining = parseInt($('#itemsLeft').text())
-            $('#itemsLeft').html(itemsRemaining+1)
+            $('#itemsLeft').html(itemsRemaining)
         },
         error: function(request, textStatus, errorMessage) {
             console.log(errorMessage);
@@ -132,14 +141,24 @@ var pickATask = function() {
         }
     });
 }
-
+var reloadThePage = function() {
+    interval = window.setInterval(function() {
+        let status;
+        if ($('#active').is(':focus')) {
+            status = 'active';
+        }
+        if ($('#completed').is(':focus')) {
+            status = 'complete';
+        }
+        console.log(status);
+        loadTasks(status);
+    }, 10000)
+    return interval
+}
 $(document).ready(function() {
 
-
-    
     loadTasks();
 
-    //CHECK WHICH BUTTON IS CURRENTLY FOCUSED AND HOLD THAT VALUE AS A VARIABLE? 
     var status;
 
     var interval = window.setInterval(function() {
@@ -150,21 +169,23 @@ $(document).ready(function() {
         if ($('#completed').is(':focus')) {
             status = 'complete';
         }
+        console.log(status);
         loadTasks(status);
-    }, 1000);
+    }, 10000);
 
-    console.log(status);
 
-    $(document).on('keydown touchstart', '.taskInput', function(e) {
+
+    $(document).on('keydown', '.taskInput', function(e) {
         window.clearInterval(interval)
     })
+ 
 
     $('#noteSheetForm').submit(function(event) {
-
         event.preventDefault();
         uploadTask(status);
         $('.taskInput').val('')
-        interval = window.setInterval(loadTasks, 2000, status);
+        //$('#all').trigger('focus');
+        interval = reloadThePage();
     }) 
 
     $(document).on('click', '.removeTask', function(event) {
@@ -197,16 +218,22 @@ $(document).ready(function() {
     })
 
     $('#active').on('focus', function() {
+        status = 'active';
+        completeTask(1994);
         $('input[type="checkbox"]:checked').closest('.toDoNote').hide();
         $('input[type="checkbox"]:not(:checked)').closest('.toDoNote').show();
     })
     $('#completed').on('focus', function() {
+        status = 'complete';
+        markTaskActive(1994);
         $('input[type="checkbox"]:not(:checked)').closest('.toDoNote').hide();
         $('input[type="checkbox"]:checked').closest('.toDoNote').show();
     })
     $('#all').on('focus', function() {
         status = 'all';
-        loadTasks(status);
+        markTaskActive(1994);
+        $('input[type="checkbox"]:not(:checked)').closest('.toDoNote').show();
+        $('input[type="checkbox"]:checked').closest('.toDoNote').show();
     })
 
     $('#randomTaskButton').on('click', function() {

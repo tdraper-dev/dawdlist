@@ -11,11 +11,11 @@ My first, humble project, built using JQuery and styled with Bootstrap.
 
 To have your own local copy, navgiate in your command line to the approriate directory where you want the app installed, and run git clone
 
-<code><pre>$ git clone  https://github.com/tdraper-dev/dawdlist.git</pre></code>
+<pre><code>$ git clone  https://github.com/tdraper-dev/dawdlist.git</code></pre>
 
 Navigate into the cloned repository,
 
-<code><pre>$ cd dawdlist</pre></code>
+<pre><code>$ cd dawdlist</code></pre>
 
 
 And there you have it! In order to run the program, you'll either need to host it on a site service like Netlify or Heroku, or create a simple server to run it locally through localhost.

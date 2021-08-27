@@ -169,6 +169,7 @@ $(document).ready(function() {
     loadTasks();
 
     var status;
+    const regexCheck = /(\$|{|}|\/|\\|\*|\(|\)\`)+/g
 
     var interval = window.setInterval(function() {
         let status;
@@ -191,9 +192,14 @@ $(document).ready(function() {
 
     $('#noteSheetForm').submit(function(event) {
         event.preventDefault();
-        uploadTask(status);
-        $('.taskInput').val('')
-        interval = reloadThePage();
+        const input = $('.taskInput').val()
+        if(!regexCheck.test(input)) {
+            uploadTask(status);
+            $('.taskInput').val('')
+            interval = reloadThePage();
+        } else {
+            $('.taskInput').val('No special characters permitted')
+        }
     }) 
 
     $(document).on('click', '.removeTask', function(event) {
